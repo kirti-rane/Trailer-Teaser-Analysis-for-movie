@@ -21,7 +21,7 @@ def compare_orb(image1, image2):
 
 def compare_keyframes_orb(trailer_keyframes, teaser_keyframes, orb_threshold=80):
     
-    total_trailer_frames = len(trailer_keyframes)
+    total_teaser_frames = len(trailer_keyframes)
     matched_trailer_frames = 0
     match_details = []  # Store details of matched frames (trailer_frame_index, teaser_frame_index, match_count)
 
@@ -41,34 +41,32 @@ def compare_keyframes_orb(trailer_keyframes, teaser_keyframes, orb_threshold=80)
             matched_trailer_frames += 1
             match_details.append((i, best_match_teaser_index, max_orb_matches))  # Store match details
 
-    return total_trailer_frames, matched_trailer_frames, match_details
+    return total_teaser_frames, matched_trailer_frames, match_details
 
 
-if __name__ == "__main__":
-    trailer_video_path = "Videos/Chak De India Trailer.mp4"
-    teaser_video_path = "Videos/Chak De India_Teaser.mp4"
+def video_correlation(teaser_path,trailer_path):
 
     # Extract keyframes from both trailer and teaser
     print("\n Extracting keyframes from trailer and teaser...")
-    trailer_keyframes = extract_keyframes(trailer_video_path, interval=3)
-    teaser_keyframes = extract_keyframes(teaser_video_path, interval=3)
+    trailer_keyframes = extract_keyframes(trailer_path, interval=1)
+    teaser_keyframes = extract_keyframes(teaser_path, interval=1)
 
     print(f"\nTotal trailer keyframes: {len(trailer_keyframes)}")
     print(f"Total teaser keyframes: {len(teaser_keyframes)}")
 
     # Compare keyframes using ORB and calculate match percentage
     print("\nComparing keyframes from trailer and teaser...")
-    total_trailer_frames, matched_trailer_frames, match_details = compare_keyframes_orb(
+    total_teaser_frames, matched_trailer_frames, match_details = compare_keyframes_orb(
         trailer_keyframes, teaser_keyframes, orb_threshold=80
     )
 
     # Calculate match percentage
-    if total_trailer_frames > 0:
-        match_percentage = (matched_trailer_frames / total_trailer_frames) * 100
+    if total_teaser_frames > 0:
+        match_percentage = (matched_trailer_frames / total_teaser_frames) * 100
     else:
         match_percentage = 0
 
-    print(f"\nMatched Frames: {matched_trailer_frames} out of {total_trailer_frames}")
+    print(f"\nMatched Frames: {matched_trailer_frames} out of {total_teaser_frames}")
     print(f" Match Percentage: {match_percentage:.2f}% of trailer keyframes have a strong match in the teaser.\n")
 
     # Show matched frame indices
