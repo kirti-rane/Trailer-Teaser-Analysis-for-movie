@@ -1,16 +1,9 @@
-# This is a sample Python script.
+from character_detection import detect_celebrities_in_video
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+if __name__ == "__main__":
+    teaser_path = "Videos/Bhool Bhulaiyaa 3 (Teaser)_ Kartik Aaryan, Vidya Balan, Triptii Dimri | Anees Bazmee | Bhushan Kumar - T-Series (720p, h264, youtube).mp4"
+    trailer_path = "Videos/Bhool Bhulaiyaa 3 (Official Trailer)_ Kartik Aaryan,Vidya B,Madhuri D,Triptii | Anees B | Bhushan K - T-Series (720p, h264, youtube).mp4"
+    embeddings_path = "/Users/kirtirane/Downloads/new_data_celebrity_embeddings.npy"
+    output_dir = "./output_frames"
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    detect_celebrities_in_video(teaser_path, trailer_path, embeddings_path,output_dir)
