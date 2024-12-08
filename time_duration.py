@@ -26,11 +26,5 @@ if __name__ == "__main__":
    teaser_video_path = "/Users/kirtirane/Downloads/Karthik Calling Karthik Teaser - Excel Movies (480p, h264, youtube).mp4"
 
    # Calculate and display durations
-   trailer_duration = get_video_duration(trailer_video_path)
-   if trailer_duration:
-       print(f"Trailer Video Duration: {trailer_duration:.2f} seconds")
-
-   teaser_duration = get_video_duration(teaser_video_path)
-   if teaser_duration:
-       print(f"Teaser Video Duration: {teaser_duration:.2f} seconds")
+   
 
