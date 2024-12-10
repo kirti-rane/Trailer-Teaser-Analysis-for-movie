@@ -19,9 +19,9 @@ def compare_orb(image1, image2):
     return len(matches)
 
 
-def compare_keyframes_orb(trailer_keyframes, teaser_keyframes, orb_threshold=80):
+def compare_keyframes_orb(trailer_keyframes, teaser_keyframes, orb_threshold=180):
     
-    total_teaser_frames = len(trailer_keyframes)
+    total_teaser_frames = len(teaser_keyframes)
     matched_trailer_frames = 0
     match_details = []  # Store details of matched frames (trailer_frame_index, teaser_frame_index, match_count)
 
@@ -57,7 +57,7 @@ def video_correlation(teaser_path,trailer_path):
     # Compare keyframes using ORB and calculate match percentage
     print("\nComparing keyframes from trailer and teaser...")
     total_teaser_frames, matched_trailer_frames, match_details = compare_keyframes_orb(
-        trailer_keyframes, teaser_keyframes, orb_threshold=80
+        trailer_keyframes, teaser_keyframes, orb_threshold=180
     )
 
     # Calculate match percentage
