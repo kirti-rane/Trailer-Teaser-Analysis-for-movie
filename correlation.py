@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-from keyframe_extractor import extract_keyframes  # Import the keyframe extraction logic
 
 
 def compare_orb(image1, image2):
@@ -70,10 +69,7 @@ def visualize_matched_frames(trailer_keyframes, teaser_keyframes, match_details)
     cv2.destroyAllWindows()
 
 
-def video_correlation(teaser_path, trailer_path):
-    print("\n Extracting keyframes from trailer and teaser...")
-    trailer_keyframes = extract_keyframes(trailer_path, interval=1)
-    teaser_keyframes = extract_keyframes(teaser_path, interval=1)
+def video_correlation(teaser_keyframes, trailer_keyframes):
 
     print(f"\nTotal trailer keyframes: {len(trailer_keyframes)}")
     print(f"Total teaser keyframes: {len(teaser_keyframes)}")

@@ -3,8 +3,6 @@ import numpy as np
 import cv2
 from sklearn.metrics.pairwise import cosine_similarity
 from insightface.app import FaceAnalysis
-from keyframe_extractor import extract_keyframes  # Import the keyframe extractor function
-
 
 def extract_name_before_second_underscore(name):
     parts = name.split('_')
@@ -45,8 +43,8 @@ def annotate_and_save_frame(frame, bbox, label, celebrity_folder, frame_count):
     )
 
 
-def process_video(video_path, celebrity_embeddings, face_analyzer, output_dir, threshold=0.5, frame_interval=1):
-    keyframes = extract_keyframes(video_path, interval=frame_interval)  # Use the imported keyframe extractor
+def process_video(keyframes, celebrity_embeddings, face_analyzer, output_dir, threshold=0.5):
+    #keyframes = extract_keyframes(video_path, interval=frame_interval)  # Use the imported keyframe extractor
     results = []
     unique_characters = set()  # To store unique detected celebrities
 
@@ -83,7 +81,7 @@ def process_video(video_path, celebrity_embeddings, face_analyzer, output_dir, t
     return results, list(unique_characters)
 
 
-def detect_celebrities_in_video(teaser_path, trailer_path, embeddings_path, output_dir):
+def detect_celebrities_in_video(teaser_keyframes, trailer_keyframes, embeddings_path, output_dir):
     # Paths and Initialization
     # teaser_path = "Videos/Bhool Bhulaiyaa 3 (Teaser)_ Kartik Aaryan, Vidya Balan, Triptii Dimri | Anees Bazmee | Bhushan Kumar - T-Series (720p, h264, youtube).mp4"
     # trailer_path = "Videos/Bhool Bhulaiyaa 3 (Official Trailer)_ Kartik Aaryan,Vidya B,Madhuri D,Triptii | Anees B | Bhushan K - T-Series (720p, h264, youtube).mp4"
@@ -95,7 +93,7 @@ def detect_celebrities_in_video(teaser_path, trailer_path, embeddings_path, outp
 
     # Process teaser
     print("Processing Teaser...")
-    teaser_results, teaser_unique_characters = process_video(teaser_path, celebrity_embeddings, face_analyzer, output_dir)
+    teaser_results, teaser_unique_characters = process_video(teaser_keyframes, celebrity_embeddings, face_analyzer, output_dir)
 
     # Print teaser results
     print("Teaser Results:")
@@ -105,12 +103,12 @@ def detect_celebrities_in_video(teaser_path, trailer_path, embeddings_path, outp
     else:
         print("No celebrities were detected in the teaser.")
 
-    print("\nUnique characters in teaser:")
+    print("\nCharacters in teaser:")
     print(teaser_unique_characters)
 
     # Process trailer
     print("\nProcessing Trailer...")
-    trailer_results, trailer_unique_characters = process_video(trailer_path, celebrity_embeddings, face_analyzer, output_dir)
+    trailer_results, trailer_unique_characters = process_video(trailer_keyframes, celebrity_embeddings, face_analyzer, output_dir)
 
     # Print trailer results
     print("Trailer Results:")
@@ -120,7 +118,7 @@ def detect_celebrities_in_video(teaser_path, trailer_path, embeddings_path, outp
     else:
         print("No celebrities were detected in the trailer.")
 
-    print("\nUnique characters in trailer:")
+    print("\nCharacters in trailer:")
     print(trailer_unique_characters)
 
     # Compare teaser and trailer unique characters
